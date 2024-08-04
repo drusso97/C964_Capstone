@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 # read csv file
 dataset = pd.read_csv('/data/bot_detection_data.csv')
@@ -13,3 +14,8 @@ y = dataset.iloc[:, 7]
 
 # Split data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=1)
+
+# Perform feature scaling on the dataset
+sc = StandardScaler()
+x_train.iloc[:, :3] = sc.fit_transform(x_train.iloc[:, :3])
+x_test.iloc[:, :3] = sc.transform(x_test.iloc[:, :3])
