@@ -25,3 +25,6 @@ X_test.iloc[:, :3] = sc.transform(X_test.iloc[:, :3])
 # Train the model
 regressor = DecisionTreeRegressor(random_state=0)
 regressor.fit(X, y)
+
+# Make predictions
+y_pred = regressor.predict(X_test)
