@@ -17,11 +17,6 @@ y = dataset['Bot Label']
 # Split data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
 
-# # Perform feature scaling
-# sc = StandardScaler()
-# X_train[['Retweet Count', 'Mention Count', 'Follower Count']] = sc.fit_transform(X_train[['Retweet Count', 'Mention Count', 'Follower Count']])
-# X_test[['Retweet Count', 'Mention Count', 'Follower Count']] = sc.transform(X_test[['Retweet Count', 'Mention Count', 'Follower Count']])
-
 # Train the model
 regressor = DecisionTreeRegressor(random_state=0)
 regressor.fit(X, y)
@@ -38,6 +33,8 @@ print("Accuracy:", accuracy)
 def index():
     # Make predictions
     y_pred = regressor.predict(X_test)
+    y_pred = y_pred.round().astype(int)  # Convert to integers
+
     X_test['Prediction'] = y_pred
     X_test['Actual'] = y_test.values
 
