@@ -24,7 +24,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # Train the model
 regressor = DecisionTreeRegressor(random_state=0)
-regressor.fit(X_train, y_train)
+regressor.fit(X, y)
 
 # Make predictions
 y_pred = regressor.predict(X_test)
