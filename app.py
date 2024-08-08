@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import accuracy_score
 
@@ -39,7 +38,7 @@ def index():
     X_test['Actual'] = y_test.values
 
     # Prepare data for display
-    result_df = X_test.head(100).reset_index(drop=True)  # Show first 100 rows
+    result_df = X_test.head(25).reset_index(drop=True)  # Show first 100 rows
 
     return render_template('index.html', tables=[result_df.to_html(classes='data', header="true")],
                            titles=result_df.columns.values)
