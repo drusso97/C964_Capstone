@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Data</title>
+    <style>
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { border: 1px solid #ddd; padding: 8px; }
+        .table th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Test Data</h1>
+    <table class="table">
+        {{ data_html|safe }}
+    </table>
+    <a href="/test_data?page={{ page - 1 }}" {% if page <= 1 %}style="pointer-events: none;"{% endif %}>Previous</a>
+    <a href="/test_data?page={{ page + 1 }}">Next</a>
+</body>
+</html>
