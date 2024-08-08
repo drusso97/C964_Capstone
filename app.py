@@ -1,29 +1,41 @@
-from flask import Flask, request, render_template
-from models.model import predict
+from flask import Flask, render_template, request
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeRegressor
 
 app = Flask(__name__)
 
+# Load and preprocess the data
+dataset = pd.read_csv('data/bot_detection_data.csv')
+
+# Prepare features and target variable
+X = dataset[['Retweet Count', 'Mention Count', 'Follower Count', 'Verified']]
+y = dataset['Bot Label']
+
+# Split data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+
+# # Perform feature scaling
+# sc = StandardScaler()
+# X_train[['Retweet Count', 'Mention Count', 'Follower Count']] = sc.fit_transform(X_train[['Retweet Count', 'Mention Count', 'Follower Count']])
+# X_test[['Retweet Count', 'Mention Count', 'Follower Count']] = sc.transform(X_test[['Retweet Count', 'Mention Count', 'Follower Count']])
+
+# Train the model
+regressor = DecisionTreeRegressor(random_state=0)
+regressor.fit(X_train, y_train)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Make predictions
+    y_pred = regressor.predict(X_test)
+    X_test['Prediction'] = y_pred
+    X_test['Actual'] = y_test.values
 
+    # Prepare data for display
+    result_df = X_test.head(100).reset_index(drop=True)  # Show first 25 rows
 
-@app.route('/predict', methods=['POST'])
-def predict_bot():
-    # Extract data from the form
-    tweet_content = request.form['tweet_content']
-    account_creation_date = request.form['account_creation_date']
-    follower_count = request.form['follower_count']
-    retweet_count = request.form['retweet_count']
-    verification_status = request.form['verification_status']
-
-    # Convert input data to the format expected by the model
-    input_data = [tweet_content, account_creation_date, follower_count, retweet_count, verification_status]
-    prediction = predict(input_data)
-
-    return render_template('result.html', prediction=prediction)
-
+    return render_template('index.html', tables=[result_df.to_html(classes='data', header="true")], titles=result_df.columns.values)
 
 if __name__ == '__main__':
     app.run(debug=True)
