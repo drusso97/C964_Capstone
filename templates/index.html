@@ -6,7 +6,19 @@
     <title>Bot Detection</title>
 </head>
 <body>
-    <h1>Bot Detection</h1>
-    <a href="/test_data?page=1">View Test Data</a>
+    <h1>Social Media Bot Detection</h1>
+    <form action="/predict" method="post">
+        <label for="tweet_content">Tweet Content:</label>
+        <input type="text" id="tweet_content" name="tweet_content" required><br><br>
+        <label for="account_creation_date">Account Creation Date:</label>
+        <input type="text" id="account_creation_date" name="account_creation_date" required><br><br>
+        <label for="follower_count">Follower Count:</label>
+        <input type="text" id="follower_count" name="follower_count" required><br><br>
+        <label for="retweet_count">Retweet Count:</label>
+        <input type="text" id="retweet_count" name="retweet_count" required><br><br>
+        <label for="verification_status">Verification Status:</label>
+        <input type="text" id="verification_status" name="verification_status" required><br><br>
+        <input type="submit" value="Predict">
+    </form>
 </body>
 </html>
