@@ -30,7 +30,7 @@ regressor.fit(X, y)
 y_pred = regressor.predict(X_test)
 
 # Calculate accuracy for the test set
-accuracy = accuracy_score(y_test, y_pred.round()) * 100
+accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
 print("Accuracy:", accuracy)
 
 
