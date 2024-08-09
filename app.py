@@ -20,13 +20,20 @@ regressor.fit(X_train, y_train)
 
 @app.route('/')
 def index():
-    y_pred = regressor.predict(X_test)
-    y_pred = y_pred.round().astype(int)
+    # Create a DataFrame for X_test with only the feature columns
+    X_test_features = X_test[['Retweet Count', 'Mention Count', 'Follower Count', 'Verified']].copy()
 
-    X_test['Prediction'] = y_pred
-    X_test['Actual'] = y_test.values
+    # Make predictions
+    y_pred = regressor.predict(X_test_features)
+    y_pred = y_pred.round().astype(int)  # Ensure predictions are 0 or 1
 
-    result_df = X_test.head(25).reset_index(drop=True)
+    # Add predictions and actual values for display
+    X_test_features['Prediction'] = y_pred
+    X_test_features['Actual'] = y_test.values
+
+    # Display only the first 25 results
+    result_df = X_test_features.head(25).reset_index(drop=True)
+
     return render_template('index.html', tables=[result_df.to_html(classes='data', header="true", index=False)],
                            titles=result_df.columns.values)
 
