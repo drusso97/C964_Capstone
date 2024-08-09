@@ -30,3 +30,26 @@ input[type="text"] {
     padding: 5px;
     margin-bottom: 10px;
 }
+
+
+.container {
+    margin: 20px;
+}
+
+.select {
+    margin-bottom: 20px;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: blue;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}

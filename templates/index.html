@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Detection - Home</title>
+    <title>Bot Detection Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
 </head>
 <body>
+
     <nav>
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -15,10 +16,34 @@
         </ul>
     </nav>
     <h1>Bot Detection Results</h1>
-    <div>
+    <p>Here you can see how the model performed against the test set.</p>
+    <div class="container">
+
+        <!-- Table displaying results -->
         {% for table in tables %}
             {{ table|safe }}
         {% endfor %}
+
+        <!-- Dropdown for selecting number of results -->
+        <form method="GET" action="/">
+            <label for="results_per_page">Results per page:</label>
+            <select id="results_per_page" name="results_per_page" onchange="this.form.submit()">
+                <option value="25" {% if results_per_page == 25 %}selected{% endif %}>25</option>
+                <option value="50" {% if results_per_page == 50 %}selected{% endif %}>50</option>
+                <option value="100" {% if results_per_page == 100 %}selected{% endif %}>100</option>
+                <option value="200" {% if results_per_page == 200 %}selected{% endif %}>200</option>
+            </select>
+        </form>
+
+        <!-- Pagination controls -->
+        <div class="pagination">
+            {% if current_page > 1 %}
+                <a href="{{ url_for('index', page=current_page-1, results_per_page=results_per_page) }}">Previous</a>
+            {% endif %}
+            {% if current_page < total_pages %}
+                <a href="{{ url_for('index', page=current_page+1, results_per_page=results_per_page) }}">Next</a>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

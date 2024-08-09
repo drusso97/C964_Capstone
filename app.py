@@ -20,22 +20,41 @@ regressor.fit(X_train, y_train)
 
 @app.route('/')
 def index():
+    # Default settings
+    results_per_page = int(request.args.get('results_per_page', 25))
+    page = int(request.args.get('page', 1))
+
     # Create a DataFrame for X_test with only the feature columns
     X_test_features = X_test[['Retweet Count', 'Mention Count', 'Follower Count', 'Verified']].copy()
 
     # Make predictions
-    y_pred = regressor.predict(X_test_features)
+    y_pred = regressor.predict(X_test)
     y_pred = y_pred.round().astype(int)  # Ensure predictions are 0 or 1
 
     # Add predictions and actual values for display
     X_test_features['Prediction'] = y_pred
     X_test_features['Actual'] = y_test.values
 
-    # Display only the first 25 results
-    result_df = X_test_features.head(25).reset_index(drop=True)
+    # Paginate results
+    start_index = (page - 1) * results_per_page
+    end_index = start_index + results_per_page
+    paginated_df = X_test_features[start_index:end_index].reset_index(drop=True)
 
-    return render_template('index.html', tables=[result_df.to_html(classes='data', header="true", index=False)],
-                           titles=result_df.columns.values)
+    # Prepare data for display
+    tables = [paginated_df.to_html(classes='data', header="true", index=False)]
+    titles = paginated_df.columns.values
+
+    # Calculate total pages
+    total_pages = (len(X_test_features) + results_per_page - 1) // results_per_page
+
+    return render_template(
+        'index.html',
+        tables=tables,
+        titles=titles,
+        current_page=page,
+        total_pages=total_pages,
+        results_per_page=results_per_page
+    )
 
 
 @app.route('/predict', methods=['GET', 'POST'])
