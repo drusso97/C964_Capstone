@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Tweet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('predict') }}">Predict</a></li>
+            <li><a href="{{ url_for('visualize') }}">Visualizations</a></li>
+        </ul>
+    </nav>
+    <h1>Predict Tweet</h1>
+    <form method="POST" action="{{ url_for('predict') }}">
+        <label for="retweet_count">Retweet Count:</label>
+        <input type="text" id="retweet_count" name="retweet_count" required><br><br>
+        <label for="mention_count">Mention Count:</label>
+        <input type="text" id="mention_count" name="mention_count" required><br><br>
+        <label for="follower_count">Follower Count:</label>
+        <input type="text" id="follower_count" name="follower_count" required><br><br>
+        <label for="verified">Verified (1 for Yes, 0 for No):</label>
+        <input type="text" id="verified" name="verified" required><br><br>
+        <input type="submit" value="Predict">
+    </form>
+    {% if prediction is not none %}
+        <h2>Prediction: {{ 'Bot' if prediction == 1 else 'Not a Bot' }}</h2>
+    {% endif %}
+</body>
+</html>
