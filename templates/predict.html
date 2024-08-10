@@ -15,6 +15,7 @@
         </ul>
     </nav>
     <h1>Predict Tweet</h1>
+    <p>Users can enter tweet features and the model will make a prediction.</p>
     <form method="POST" action="{{ url_for('predict') }}">
         <label for="retweet_count">Retweet Count:</label>
         <input type="text" id="retweet_count" name="retweet_count" required><br><br>
