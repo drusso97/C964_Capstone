@@ -20,6 +20,22 @@
         the test set. A publicly available dataset from Kaggle was used for both training and testing the model.
         The dataset can be found <a href="https://www.kaggle.com/datasets/goyaladi/twitter-bot-detection-dataset" target="_blank">here</a>.
     </p>
+
+    <h3>How It Works</h3>
+    <p>
+        The model was developed in Python, using Numpy for data manipulation and sklearn for the Machine Learning model.
+        Flask is used to integrate the backend Python code with the frontend web application. A dataset containing
+        50,000 tweets was used. 40,000 of the tweets were used for training and 10,000 were used in the test set. The model
+        leverage the following features of the data: Retweet Count, Mention Count, Follower Count, and Verification
+        Status. Tweet content and hashtags were originally considered later deemed unnecessary.
+    </p>
+
+    <h3>How the Model Performed</h3>
+    <p>
+        The table below shows how the model performed against the test set. A 1 means the tweet came from a bot account
+        and a 0 means that the tweet did not come from a bot account.
+    </p>
+
     <div class="container">
 
         <!-- Table displaying results -->

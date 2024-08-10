@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request
 import pandas as pd
+from flask import Flask, render_template, request
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import accuracy_score
 
 app = Flask(__name__)
 
@@ -32,9 +32,9 @@ def index():
     y_pred = regressor.predict(X_test)
     y_pred = y_pred.round().astype(int)  # Ensure predictions are 0 or 1
 
-    # Calculate accuracy for the test set
-    accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
-    print("Accuracy:", accuracy)
+    # # Calculate accuracy for the test set
+    # accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
+    # print("Accuracy:", accuracy)
 
     # Add predictions and actual values for display
     X_test_features['Prediction'] = y_pred
