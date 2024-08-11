@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 import io
 import base64
-from graphviz import Source
-from sklearn.tree import export_graphviz
 
 app = Flask(__name__)
 
