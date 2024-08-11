@@ -98,7 +98,7 @@ def visualize():
 
 
 @app.route('/feature_importance_plot')
-def visualization1():
+def get_feature_importance_plot():
     # Generate the feature importance plot
     plt.figure(figsize=(10, 8))
     feature_importances = regressor.feature_importances_
