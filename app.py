@@ -94,11 +94,6 @@ def predict():
     return render_template('predict.html')
 
 
-@app.route('/visualize')
-def visualize():
-    return render_template('visualize.html')
-
-
 @app.route('/feature_importance_plot')
 def get_feature_importance_plot():
     # Generate the feature importance plot
@@ -118,8 +113,8 @@ def get_feature_importance_plot():
     return render_template('feature_importance_plot.html', plot_url=img_base64)
 
 
-@app.route('/visualization2')
-def visualization2():
+@app.route('/decision_tree_plot')
+def get_decision_tree_plot():
     # Reduce the depth of the tree to speed up rendering
     regressor = DecisionTreeRegressor(max_depth=3, random_state=0)
     regressor.fit(X, y)
@@ -136,7 +131,7 @@ def visualization2():
     img_base64 = base64.b64encode(img.getvalue()).decode('utf8')
     plt.close()  # Close the plot to free up memory
 
-    return render_template('visualization2.html', plot_url=img_base64)
+    return render_template('decision_tree_plot.html', plot_url=img_base64)
 
 
 @app.route('/visualization3')
