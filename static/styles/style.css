@@ -106,3 +106,8 @@ nav ul li ul li a:hover {
 nav ul li:hover ul {
     display: block;
 }
+
+.disclaimer {
+    color: red;
+    font-size: 12px;
+}

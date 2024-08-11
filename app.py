@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 import io
 import base64
+from graphviz import Source
+from sklearn.tree import export_graphviz
 
 app = Flask(__name__)
 
@@ -97,7 +99,7 @@ def visualize():
     return render_template('visualize.html')
 
 
-@app.route('/visualization1')
+@app.route('/feature_importance_plot')
 def get_feature_importance_plot():
     # Generate the feature importance plot
     plt.figure(figsize=(10, 8))
@@ -118,7 +120,23 @@ def get_feature_importance_plot():
 
 @app.route('/visualization2')
 def visualization2():
-    return render_template('visualization2.html')
+    # Reduce the depth of the tree to speed up rendering
+    regressor = DecisionTreeRegressor(max_depth=3, random_state=0)
+    regressor.fit(X, y)
+
+    # Generate the decision tree plot
+    plt.figure(figsize=(15, 10))  # Adjust figure size for faster rendering
+    plot_tree(regressor, feature_names=X.columns, filled=True, rounded=True)
+    plt.title('Decision Tree Visualization')
+
+    # Save the plot to a BytesIO object
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    img_base64 = base64.b64encode(img.getvalue()).decode('utf8')
+    plt.close()  # Close the plot to free up memory
+
+    return render_template('visualization2.html', plot_url=img_base64)
 
 
 @app.route('/visualization3')
