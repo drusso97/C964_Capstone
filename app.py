@@ -96,13 +96,30 @@ def predict():
 def visualize():
     return render_template('visualize.html')
 
-@app.route('/visualization1')
+
+@app.route('/feature_importance_plot')
 def visualization1():
-    return render_template('visualization1.html')
+    # Generate the feature importance plot
+    plt.figure(figsize=(10, 8))
+    feature_importances = regressor.feature_importances_
+    features = X.columns
+    plt.barh(features, feature_importances)
+    plt.xlabel('Feature Importance')
+    plt.title('Feature Importance Plot')
+
+    # Save the plot to a BytesIO object
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    img_base64 = base64.b64encode(img.getvalue()).decode('utf8')
+
+    return render_template('feature_importance_plot.html', plot_url=img_base64)
+
 
 @app.route('/visualization2')
 def visualization2():
     return render_template('visualization2.html')
+
 
 @app.route('/visualization3')
 def visualization3():

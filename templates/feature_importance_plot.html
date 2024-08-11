@@ -14,14 +14,14 @@
         <li>
             <a href="#">Visualizations</a>
             <ul>
-                <li><a href="{{ url_for('visualization1') }}">Visualization 1</a></li>
+                <li><a href="{{ url_for('visualization1') }}">Feature Importance Plot</a></li>
                 <li><a href="{{ url_for('visualization2') }}">Visualization 2</a></li>
                 <li><a href="{{ url_for('visualization3') }}">Visualization 3</a></li>
             </ul>
         </li>
     </ul>
 </nav>
-    <h1>Visualizations</h1>
-    <p>Visualizations will be added here in the future.</p>
+    <h1>Feature Importance Plot</h1>
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Feature Importance Plot">
 </body>
 </html>
