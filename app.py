@@ -3,6 +3,10 @@ from flask import Flask, render_template, request
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+import io
+import base64
 
 app = Flask(__name__)
 
@@ -91,6 +95,18 @@ def predict():
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')
+
+@app.route('/visualization1')
+def visualization1():
+    return render_template('visualization1.html')
+
+@app.route('/visualization2')
+def visualization2():
+    return render_template('visualization2.html')
+
+@app.route('/visualization3')
+def visualization3():
+    return render_template('visualization3.html')
 
 
 if __name__ == '__main__':

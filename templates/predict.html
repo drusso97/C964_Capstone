@@ -7,13 +7,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('predict') }}">Predict</a></li>
-            <li><a href="{{ url_for('visualize') }}">Visualizations</a></li>
-        </ul>
-    </nav>
+<nav>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('predict') }}">Predict</a></li>
+        <li>
+            <a href="#">Visualizations</a>
+            <ul>
+                <li><a href="{{ url_for('visualization1') }}">Visualization 1</a></li>
+                <li><a href="{{ url_for('visualization2') }}">Visualization 2</a></li>
+                <li><a href="{{ url_for('visualization3') }}">Visualization 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
     <h1>Predict Tweet</h1>
     <p>Users can enter tweet features and the model will make a prediction.</p>
     <form method="POST" action="{{ url_for('predict') }}">

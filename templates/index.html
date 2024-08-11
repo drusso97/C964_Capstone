@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('predict') }}">Predict</a></li>
-            <li><a href="{{ url_for('visualize') }}">Visualizations</a></li>
-        </ul>
-    </nav>
-    <h1>Supervised Machine Learning to Detect Twitter Bots</h1>
+<nav>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('predict') }}">Predict</a></li>
+        <li>
+            <a href="#">Visualizations</a>
+            <ul>
+                <li><a href="{{ url_for('visualization1') }}">Visualization 1</a></li>
+                <li><a href="{{ url_for('visualization2') }}">Visualization 2</a></li>
+                <li><a href="{{ url_for('visualization3') }}">Visualization 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+    <h1>Using Supervised Machine Learning to Detect Twitter Bots</h1>
     <p>This project explores how supervised machine learning can be implemented to detect bots on Twitter.
         Specifically, the Decision Tree algorithm is used. It achieves an accuracy of approximately 99.8% against
         the test set. A publicly available dataset from Kaggle was used for both training and testing the model.
