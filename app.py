@@ -97,7 +97,7 @@ def visualize():
     return render_template('visualize.html')
 
 
-@app.route('/feature_importance_plot')
+@app.route('/visualization1')
 def get_feature_importance_plot():
     # Generate the feature importance plot
     plt.figure(figsize=(10, 8))
