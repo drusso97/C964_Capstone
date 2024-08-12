@@ -21,7 +21,23 @@
         </li>
     </ul>
 </nav>
-    <h1>Visualizations</h1>
-    <p>Visualizations will be added here in the future.</p>
+<h1>Decision Tree Regression Visualization</h1>
+    <p>Below is a plot of the Decision Tree Regressor model's predictions. Use the dropdown menu to select the feature
+        for which you want to visualize the model's predictions. Here, you can more easily see which features the model
+        prioritizes and which features are less important.</p>
+
+    <form method="GET" action="{{ url_for('visualization3') }}">
+        <label for="feature">Select Feature:</label>
+        <select id="feature" name="feature" onchange="this.form.submit()">
+            <option value="Retweet Count" {% if feature_name == 'Retweet Count' %}selected{% endif %}>Retweet Count</option>
+            <option value="Mention Count" {% if feature_name == 'Mention Count' %}selected{% endif %}>Mention Count</option>
+            <option value="Follower Count" {% if feature_name == 'Follower Count' %}selected{% endif %}>Follower Count</option>
+            <option value="Verified" {% if feature_name == 'Verified' %}selected{% endif %}>Verified</option>
+        </select>
+    </form>
+
+    <img src="data:image/png;base64,{{ plot_img }}" alt="Decision Tree Regression Plot">
+
+
 </body>
 </html>

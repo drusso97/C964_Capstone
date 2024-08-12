@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 import io
 import base64
+import numpy as np
 
 app = Flask(__name__)
 
@@ -134,7 +135,37 @@ def get_decision_tree_plot():
 
 @app.route('/visualization3')
 def visualization3():
-    return render_template('visualization3.html')
+    # Default feature to show if none is selected
+    feature_name = request.args.get('feature', 'Retweet Count')
+
+    if feature_name not in X.columns:
+        feature_name = 'Retweet Count'  # Fallback to default feature if invalid
+
+    # Generate a range of values for the selected feature to visualize
+    X_range = np.linspace(X[feature_name].min(), X[feature_name].max(), 100).reshape(-1, 1)
+    X_range_full = np.hstack((X_range, np.zeros((100, X.shape[1] - 1))))  # Keep other features constant
+
+    # Predict using the model
+    y_range_pred = regressor.predict(X_range_full)
+
+    # Plotting
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X[feature_name], y, color='blue', label='Actual Data')
+    plt.plot(X_range, y_range_pred, color='red', label='Decision Tree Predictions')
+    plt.title(f'Decision Tree Regression for {feature_name}')
+    plt.xlabel(feature_name)
+    plt.ylabel('Bot Label')
+    plt.legend()
+    plt.grid(True)
+
+    # Save plot to a BytesIO object and encode as base64
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    plt.close()
+
+    return render_template('visualization3.html', plot_img=img_base64, feature_name=feature_name)
 
 
 if __name__ == '__main__':
