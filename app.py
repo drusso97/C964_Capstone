@@ -133,8 +133,8 @@ def get_decision_tree_plot():
     return render_template('decision_tree_plot.html', plot_url=img_base64)
 
 
-@app.route('/visualization3')
-def visualization3():
+@app.route('/regression_lines')
+def get_regression_line():
     # Default feature to show if none is selected
     feature_name = request.args.get('feature', 'Retweet Count')
 
@@ -165,7 +165,7 @@ def visualization3():
     img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
     plt.close()
 
-    return render_template('visualization3.html', plot_img=img_base64, feature_name=feature_name)
+    return render_template('regression_lines.html', plot_img=img_base64, feature_name=feature_name)
 
 
 if __name__ == '__main__':

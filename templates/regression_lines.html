@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizations</title>
+    <title>Regression Lines</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles/style.css') }}">
 </head>
 <body>
@@ -15,8 +15,8 @@
             <a href="#">Visualizations</a>
             <ul>
                 <li><a href="{{ url_for('get_feature_importance_plot') }}">Feature Importance Plot</a></li>
-                <li><a href="{{ url_for('get_decision_tree_plot') }}">Visualization 2</a></li>
-                <li><a href="{{ url_for('visualization3') }}">Visualization 3</a></li>
+                <li><a href="{{ url_for('get_decision_tree_plot') }}">Decision Tree Plot</a></li>
+                <li><a href="{{ url_for('get_regression_line') }}">Regression Lines</a></li>
             </ul>
         </li>
     </ul>
@@ -26,7 +26,7 @@
         for which you want to visualize the model's predictions. Here, you can more easily see which features the model
         prioritizes and which features are less important.</p>
 
-    <form method="GET" action="{{ url_for('visualization3') }}">
+    <form method="GET" action="{{ url_for('get_regression_line') }}">
         <label for="feature">Select Feature:</label>
         <select id="feature" name="feature" onchange="this.form.submit()">
             <option value="Retweet Count" {% if feature_name == 'Retweet Count' %}selected{% endif %}>Retweet Count</option>
