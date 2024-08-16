@@ -111,3 +111,7 @@ nav ul li:hover ul {
     color: red;
     font-size: 12px;
 }
+
+#full_dt_plot {
+    display: none;
+}

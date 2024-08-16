@@ -25,7 +25,24 @@
         limited to 3 levels in this visualization. The actual decision tree is much deeper. This constraint allows me
         to present a more manageable and understandable view of the decision-making process used by the algorithm. By
         simplifying the tree structure, I aim to illustrate the foundational elements of the model's decisions without
-        overwhelming viewers with excessive detail.</p>
+        overwhelming viewers with excessive detail.
+<br><br>
+    Click <a href="#" onclick="showImage(); return false;">here</a> to see the full image.
+    <br>
+    <img id="full_dt_plot" src="{{ url_for('static', filename='full_dt.png') }}" alt="Fully Rendered Decision Tree Plot">
+
+    <script>
+        function showImage() {
+            const image = document.getElementById("full_dt_plot");
+            if (image.style.display === "none") {
+                image.style.display = "block"; // Show image
+            } else {
+                image.style.display = "none"; // Hide image if clicked again
+            }
+        }
+    </script>
+
+</p>
     <h1>Decision Tree Visualization</h1>
     <img src="data:image/png;base64,{{ plot_url }}" alt="Decision Tree Plot">
 </body>
