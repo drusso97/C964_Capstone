@@ -30,9 +30,9 @@ regressor.fit(X, y)
 y_pred = regressor.predict(X_test)
 y_pred = y_pred.round().astype(int)  # Ensure predictions are 0 or 1
 
-# # Calculate accuracy for the test set
-# accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
-# print("Accuracy:", accuracy)
+# Calculate accuracy for the test set
+accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
+print("Accuracy:", accuracy)
 
 
 @app.route('/')
