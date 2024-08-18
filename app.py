@@ -3,6 +3,8 @@ from flask import Flask, render_template, request
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 import io
