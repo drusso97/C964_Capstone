@@ -1,3 +1,4 @@
+# Import necessary libraries
 import pandas as pd
 from flask import Flask, render_template, request
 from sklearn.metrics import accuracy_score
@@ -25,6 +26,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 regressor = DecisionTreeRegressor(random_state=0)
 regressor.fit(X, y)
 
+# Make predictions
+y_pred = regressor.predict(X_test)
+y_pred = y_pred.round().astype(int)  # Ensure predictions are 0 or 1
+
+# Calculate accuracy for the test set
+accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
+print("Accuracy:", accuracy)
+
 
 @app.route('/')
 def index():
@@ -34,14 +43,6 @@ def index():
 
     # Create a DataFrame for X_test with only the feature columns
     X_test_features = X_test[['Retweet Count', 'Mention Count', 'Follower Count', 'Verified']].copy()
-
-    # Make predictions
-    y_pred = regressor.predict(X_test)
-    y_pred = y_pred.round().astype(int)  # Ensure predictions are 0 or 1
-
-    # # Calculate accuracy for the test set
-    # accuracy = round((accuracy_score(y_test, y_pred.round()) * 100), 2)
-    # print("Accuracy:", accuracy)
 
     # Add predictions and actual values for display
     X_test_features['Prediction'] = y_pred
