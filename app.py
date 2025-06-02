@@ -14,6 +14,9 @@ import numpy as np
 
 app = Flask(__name__)
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
 # Load and preprocess the data
 dataset = pd.read_csv('data/bot_detection_data.csv')
 X = dataset[['Retweet Count', 'Mention Count', 'Follower Count', 'Verified']]
